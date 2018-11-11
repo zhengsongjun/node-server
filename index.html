@@ -12,15 +12,21 @@
     <!-- <script src="ajax.js"></script> -->
     <input type="text">
     <button>点击发送</button>
+    天气预报:<span class="city"></span>是<span class="weather"></span>
     <script>
         var int = document.querySelector('input')
         var btn = document.querySelector('button')
+        var city = document.querySelector('span.city')
+        var span = document.querySelector('span.weather')
         btn.onclick = function(){
+            var intVal = int.value;
+            console.log(intVal)
             var xhr = new XMLHttpRequest()
-            xhr.open('GET','/getWeather',true)
+            xhr.open('GET',`/getWeather?city=${intVal}`,true)
             xhr.send()
             xhr.onload = function(){
-                console.log(JSON.parse(xhr.responseText))
+                city.innerText = JSON.parse(xhr.responseText).city
+                span.innerText = JSON.parse(xhr.responseText).weather
             }
         }
     </script>
